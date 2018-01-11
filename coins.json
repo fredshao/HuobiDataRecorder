@@ -4,11 +4,63 @@
 		"symbol":"btcusdt"
 	},
 	{
-		"currency": "btm", 
+		"currency": "bch",
+		"symbol":"bchbtc"
+	},
+	{
+		"currency": "xrp", 
+		"symbol":"xrpbtc"
+	},
+	{
+		"currency": "eth",
+		"symbol":"ethbtc"
+	},
+	{
+		"currency": "ltc",
+		"symbol":"ltcbtc"
+	},
+	{
+		"currency": "dash",
+		"symbol":"dashbtc"
+	},
+	{
+		"currency": "eos",
+		"symbol":"eosbtc"
+	},
+	{
+		"currency": "omg",
+		"symbol":"omgbtc"
+	},
+	{
+		"currency": "snt",
+		"symbol":"sntbtc"
+	},
+	{
+		"currency": "cmt",
+		"symbol":"cmtbtc"
+	},
+	{
+		"currency": "btm",
 		"symbol":"btmbtc"
 	},
 	{
-		"currency": "eth", 
-		"symbol":"ethbtc"
+		"currency": "act",
+		"symbol":"actbtc"
+	},
+	{
+		"currency": "tnb",
+		"symbol":"tnbbtc"
+	},
+	{
+		"currency": "topc",
+		"symbol":"topcbtc"
+	},
+	{
+		"currency": "dbc",
+		"symbol":"dbcbtc"
+	},
+	{
+		"currency": "bcx",
+		"symbol":"bcxbtc"
 	}
 ]
