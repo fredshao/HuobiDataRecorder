@@ -11,7 +11,7 @@ import pytz
 from datetime import date, datetime
 
 
-# ======================== 工具方法  ========================
+# ======================== Utils Function ========================
 def AppendTextToFile(filePath,text):
     with open(filePath,'a') as f:
         f.write(text)
@@ -26,7 +26,7 @@ def ReadTextFromFile(filePath):
     with open(filePath,'r') as f:
         return f.read()
 
-# ======================== 工具方法结束 ========================
+# ======================== Utils Function End ========================
 
 
 
