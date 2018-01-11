@@ -99,7 +99,7 @@ class CoinRecorder(object):
             except:
                 self.__SaveData(-1.0, -1.0)
                 print("------------------------------------------Get Price Faild:",self.coinName,self.symbol)
-            time.sleep(0.5)
+            #time.sleep(0.5)
             
     def __SaveData(self,bidsPrice, asksPrice):
         self.cursor.execute("insert into depthData (bids,asks,created_at) values(?,?,?)" , (bidsPrice,asksPrice,self.__GetShanghaiTime()))
