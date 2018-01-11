@@ -1,0 +1,10 @@
+[
+	{
+		"currency": "btc", 
+		"symbol":"btcusdt"
+	},
+	{
+		"currency": "btm", 
+		"symbol":"btmbtc"
+	}
+]
