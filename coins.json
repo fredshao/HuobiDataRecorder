@@ -6,5 +6,9 @@
 	{
 		"currency": "btm", 
 		"symbol":"btmbtc"
+	},
+	{
+		"currency": "eth", 
+		"symbol":"ethbtc"
 	}
 ]
