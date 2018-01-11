@@ -84,11 +84,11 @@ class CoinRecorder(object):
                 depthData = HuobiServices.get_depth(self.symbol,'step0')
                 bidsPrice = -2.0
                 asksPrice = -2.0
-                if(len(depthData['tick']['bids']) > 0 and len(depthData['tick']['bids'][0]) > 0):
-                    bidsPrice = depthData['tick']['bids'][0][0]
+                if(len(depthData['tick']['bids']) > 1):
+                    bidsPrice = depthData['tick']['bids'][1][0]
             
-                if(len(depthData['tick']['asks']) > 0 and len(depthData['tick']['asks'][0]) > 0):
-                    asksPrice = depthData['tick']['asks'][0][0]
+                if(len(depthData['tick']['asks']) > 1):
+                    asksPrice = depthData['tick']['asks'][1][0]
                 
                 self.__SaveData(bidsPrice, asksPrice)
                 
@@ -99,7 +99,7 @@ class CoinRecorder(object):
             except:
                 self.__SaveData(-1.0, -1.0)
                 #print("------------------------------------------Get Price Faild:",self.coinName,self.symbol)
-            #time.sleep(0.5)
+
             
     def __SaveData(self,bidsPrice, asksPrice):
         self.cursor.execute("insert into depthData (bids,asks,created_at) values(?,?,?)" , (bidsPrice,asksPrice,self.__GetShanghaiTime()))
