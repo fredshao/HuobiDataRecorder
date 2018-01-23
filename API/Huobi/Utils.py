@@ -40,7 +40,7 @@ def http_get_request(url, params, add_to_headers=None):
     postdata = urllib.parse.urlencode(params)
 
     try:
-        response = requests.get(url, postdata, headers=headers, timeout=5)
+        response = requests.get(url, postdata, headers=headers, timeout=3)
 
         if response.status_code == 200:
             return response.json()

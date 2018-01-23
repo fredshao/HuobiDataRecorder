@@ -9,6 +9,7 @@ import requests
 import sqlite3
 import pytz
 from datetime import date, datetime
+import sys
 
 
 # ======================== Utils Function ========================
@@ -63,6 +64,10 @@ class CoinRecorder(object):
         else:
             self.conn = sqlite3.connect(dbName)
             self.cursor = self.conn.cursor()
+
+    def CloseDB(self):
+        self.cursor.close()
+        self.conn.close()
             
     def __GetShanghaiTime(self):
         tz = pytz.timezone('Asia/Shanghai')
@@ -96,9 +101,11 @@ class CoinRecorder(object):
                 asksPrice = Decimal(asksPrice).quantize(Decimal('0.00000000'))
                 
                 #print(self.coinName,'-',self.symbol,bidsPrice,asksPrice)
-            except:
+            except Exception as e:
+                print(self.symbol," Exception:", e)
                 self.__SaveData(-1.0, -1.0)
                 #print("------------------------------------------Get Price Faild:",self.coinName,self.symbol)
+            time.sleep(0.2)
 
             
     def __SaveData(self,bidsPrice, asksPrice):
@@ -117,7 +124,7 @@ def InitCoinInfo():
         symbol = item['symbol']
         if coinInfoDict.__contains__(coinName) is False:
             coinInfo = CoinInfo(coinName, symbol)
-            coinInfoDict[coinName] = coinInfo
+            coinInfoDict[symbol] = coinInfo
             
 def StartRecordData():
     for coin,coinInfo in coinInfoDict.items():
@@ -125,13 +132,16 @@ def StartRecordData():
         if recorderDict.__contains__(coinInfo.symbol) is False:
             recorder = CoinRecorder(coinInfo.coinName,coinInfo.symbol)
             recorderDict[coinInfo.symbol] = recorder
-            
+
+InitCoinInfo()
+StartRecordData()   
 
 while(True):
-    print("Refresh Recorder")
-    InitCoinInfo()
-    StartRecordData()
-    time.sleep(10)
+    try:
+        pass
+    except KeyboardInterrupt:
+        print("Should Close database")
+        sys.exit()
 
 
     

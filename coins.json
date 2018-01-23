@@ -32,35 +32,27 @@
 		"symbol":"omgbtc"
 	},
 	{
-		"currency": "snt",
-		"symbol":"sntbtc"
+		"currency": "bch",
+		"symbol":"bchusdt"
 	},
 	{
-		"currency": "cmt",
-		"symbol":"cmtbtc"
+		"currency": "eos",
+		"symbol":"eosusdt"
 	},
 	{
-		"currency": "btm",
-		"symbol":"btmbtc"
+		"currency": "dash",
+		"symbol":"dashusdt"
 	},
 	{
-		"currency": "act",
-		"symbol":"actbtc"
+		"currency": "eth",
+		"symbol":"ethusdt"
 	},
 	{
-		"currency": "tnb",
-		"symbol":"tnbbtc"
+		"currency": "omg",
+		"symbol":"omgusdt"
 	},
 	{
-		"currency": "topc",
-		"symbol":"topcbtc"
-	},
-	{
-		"currency": "dbc",
-		"symbol":"dbcbtc"
-	},
-	{
-		"currency": "bcx",
-		"symbol":"bcxbtc"
+		"currency": "xrp",
+		"symbol":"xrpusdt"
 	}
 ]
