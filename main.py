@@ -46,7 +46,7 @@ class CoinRecorder(object):
     def __init__(self,coinName,symbol):
         self.coinName = coinName
         self.symbol = symbol
-        self.__DoWork()
+        #self.__DoWork()
         
     def __ConnectDB(self):
         dbName = self.symbol + ".db"
@@ -56,8 +56,20 @@ class CoinRecorder(object):
             self.cursor = self.conn.cursor()
             self.cursor.execute('''
             CREATE TABLE depthData(
-            bids DOUBLE NOT NULL,
-            asks DOUBLE NOT NULL,
+            bid1 DOUBLE NOT NULL,
+            bid2 DOUBLE NOT NULL,
+            bid3 DOUBLE NOT null,
+            bid4 double not null,
+            bid5 double not null,
+            bid6 double not null,
+            bid7 double not null,
+            ask1 DOUBLE NOT NULL,
+            ask2 double not null,
+            ask3 double not null,
+            ask4 double not null,
+            ask5 double not null,
+            ask6 double not null,
+            ask7 double not null,
             created_at datetime);
             ''')
             self.conn.commit()
@@ -66,7 +78,6 @@ class CoinRecorder(object):
             self.cursor = self.conn.cursor()
 
     def CloseDB(self):
-        self.cursor.close()
         self.conn.close()
             
     def __GetShanghaiTime(self):
@@ -76,41 +87,52 @@ class CoinRecorder(object):
         return datetime(dt.year,dt.month,dt.day,dt.hour,dt.minute,dt.second,dt.microsecond)
             
     
-    def __DoWork(self):
+    def DoWork(self):
         print("Start Record:",self.coinName,'-',self.symbol)
-        t = threading.Thread(target=self.__GetTradeDataThread, name="GetTradeData_" + self.symbol)
-        t.setDaemon(True)
-        t.start()
+        #t = threading.Thread(target=self.__GetTradeDataThread, name="GetTradeData_" + self.symbol)
+        #t.setDaemon(True)
+        #t.start()
+        self.__GetTradeDataThread()
     
     def __GetTradeDataThread(self):
-        self.__ConnectDB()
+        
         while(True):
             try:
                 depthData = HuobiServices.get_depth(self.symbol,'step0')
                 bidsPrice = -2.0
                 asksPrice = -2.0
-                if(len(depthData['tick']['bids']) > 1):
-                    bidsPrice = depthData['tick']['bids'][1][0]
-            
-                if(len(depthData['tick']['asks']) > 1):
-                    asksPrice = depthData['tick']['asks'][1][0]
                 
-                self.__SaveData(bidsPrice, asksPrice)
+                bid1 = depthData['tick']['bids'][0][0]
+                bid2 = depthData['tick']['bids'][1][0]
+                bid3 = depthData['tick']['bids'][2][0]
+                bid4 = depthData['tick']['bids'][3][0]
+                bid5 = depthData['tick']['bids'][4][0]
+                bid6 = depthData['tick']['bids'][5][0]
+                bid7 = depthData['tick']['bids'][6][0]
+
+                ask1 = depthData['tick']['asks'][0][0]
+                ask2 = depthData['tick']['asks'][1][0]
+                ask3 = depthData['tick']['asks'][2][0]
+                ask4 = depthData['tick']['asks'][3][0]
+                ask5 = depthData['tick']['asks'][4][0]
+                ask6 = depthData['tick']['asks'][5][0]
+                ask7 = depthData['tick']['asks'][6][0]
                 
-                bidsPrice = Decimal(bidsPrice).quantize(Decimal('0.00000000'))
-                asksPrice = Decimal(asksPrice).quantize(Decimal('0.00000000'))
+                self.__SaveData(bid1,bid2,bid3,bid4,bid5,bid6,bid7,ask1,ask2,ask3,ask4,ask5,ask6,ask7)
                 
                 #print(self.coinName,'-',self.symbol,bidsPrice,asksPrice)
             except Exception as e:
                 print(self.symbol," Exception:", e)
-                self.__SaveData(-1.0, -1.0)
+                self.__SaveData(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)
                 #print("------------------------------------------Get Price Faild:",self.coinName,self.symbol)
-            time.sleep(0.2)
+            time.sleep(0.5)
 
             
-    def __SaveData(self,bidsPrice, asksPrice):
-        self.cursor.execute("insert into depthData (bids,asks,created_at) values(?,?,?)" , (bidsPrice,asksPrice,self.__GetShanghaiTime()))
+    def __SaveData(self,bid1,bid2,bid3,bid4,bid5,bid6,bid7, ask1,ask2,ask3,ask4,ask5,ask6,ask7):
+        self.__ConnectDB()
+        self.cursor.execute("insert into depthData (bid1,bid2,bid3,bid4,bid5,bid6,bid7,ask1,ask2,ask3,ask4,ask5,ask6,ask7,created_at) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)" , (bid1,bid2,bid3,bid4,bid5,bid6,bid7,ask1,ask2,ask3,ask4,ask5,ask6,ask7,self.__GetShanghaiTime()))
         self.conn.commit()
+        self.CloseDB()
     
 
 
@@ -133,15 +155,21 @@ def StartRecordData():
             recorder = CoinRecorder(coinInfo.coinName,coinInfo.symbol)
             recorderDict[coinInfo.symbol] = recorder
 
-InitCoinInfo()
-StartRecordData()   
 
-while(True):
-    try:
-        pass
-    except KeyboardInterrupt:
-        print("Should Close database")
-        sys.exit()
+coinName = 'btc'
+symbol = 'btcusdt'
+recorder = CoinRecorder(coinName,symbol)
+recorder.DoWork()
+
+#InitCoinInfo()
+#StartRecordData()   
+
+#while(True):
+#    try:
+#        pass
+#    except KeyboardInterrupt:
+#        print("Should Close database")
+#        sys.exit()
 
 
     
