@@ -4,55 +4,7 @@
 		"symbol":"btcusdt"
 	},
 	{
-		"currency": "bch",
-		"symbol":"bchbtc"
-	},
-	{
-		"currency": "xrp", 
-		"symbol":"xrpbtc"
-	},
-	{
-		"currency": "eth",
-		"symbol":"ethbtc"
-	},
-	{
-		"currency": "ltc",
-		"symbol":"ltcbtc"
-	},
-	{
-		"currency": "dash",
-		"symbol":"dashbtc"
-	},
-	{
-		"currency": "eos",
-		"symbol":"eosbtc"
-	},
-	{
-		"currency": "omg",
-		"symbol":"omgbtc"
-	},
-	{
-		"currency": "bch",
-		"symbol":"bchusdt"
-	},
-	{
-		"currency": "eos",
-		"symbol":"eosusdt"
-	},
-	{
-		"currency": "dash",
-		"symbol":"dashusdt"
-	},
-	{
-		"currency": "eth",
+		"currency": "eth", 
 		"symbol":"ethusdt"
-	},
-	{
-		"currency": "omg",
-		"symbol":"omgusdt"
-	},
-	{
-		"currency": "xrp",
-		"symbol":"xrpusdt"
 	}
 ]

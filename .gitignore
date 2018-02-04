@@ -1,2 +1,5 @@
 *.db
 *.db-journal
+.project
+.pydevproject
+*.pyc
